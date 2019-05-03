@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:mymusicapp/songs.dart';
 import 'package:mymusicapp/theme.dart';
 
 void main() => runApp(MyApp());
@@ -50,18 +53,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: <Widget>[
-            //Seek Bar
+            //Seek Bar ------------------------
+
             new Expanded(
-              child: new Container(),
+              child: new Center(
+                child: new Container(
+                  width: 125.0,
+                  height: 125.0,
+                  child: new ClipOval(
+                    clipper: new CircleClipper(),
+                    child: new Image.network(
+                      demoPlaylist.songs[0].albumArtUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              )
             ),
 
-            //Visualizer
+            //Visualizer ------------------------
+
             new Container(
               width: double.infinity,
               height: 125.0,
             ),
 
-            //Song name, artist and controls
+            //Song name, artist and controls ------------------------
             new Container(
               color: accentColor,
               child: Padding(
@@ -73,38 +90,35 @@ class _MyHomePageState extends State<MyHomePage> {
                         text: '',
                         children: [
                           new TextSpan(
-                              text: 'Song Title\n',
-                              style: new TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 4.0,
-                                height: 1.5,
-                              )),
+                            text: 'Song Title\n',
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 4.0,
+                              height: 1.5,
+                            )
+                          ),
                           new TextSpan(
-                              text: 'Artist Name',
-                              style: new TextStyle(
-                                color: Colors.white.withOpacity(0.75),
-                                fontSize: 12.0,
-                                letterSpacing: 3.0,
-                                height: 1.5,
-                              ))
+                            text: 'Artist Name',
+                            style: new TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 12.0,
+                              letterSpacing: 3.0,
+                              height: 1.5,
+                            )
+                          )
                         ],
                       ),
                     ),
+
+
                     Padding(
                       padding: const EdgeInsets.only(top: 40.0),
                       child: new Row(
                         children: <Widget>[
-                          new Expanded(child: new Center(
-                            child: new Container(
-                              width: 125.0,
-                              height: 125.0,
-                              child: new Image.network(
 
-                              ),
-                            ),
-                          )),
+                          new Expanded(child: new Container()),
 
                           new IconButton(
                             icon: new Icon(
@@ -112,12 +126,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.white,
                               size: 35.0,
                             ),
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                           ),
 
+
                           new Expanded(child: new Container()),
+
 
                           new RawMaterialButton(
                             shape: new CircleBorder(),
@@ -126,20 +140,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             highlightColor: lightAccentColor.withOpacity(0.5),
                             elevation: 10.0,
                             highlightElevation: 5.0,
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                             child: new Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: new Icon(
                                 Icons.play_arrow,
                                 color: darkAccentColor,
-                                size: 35,
+                                size: 35.0,
                               ),
                             ),
                           ),
 
+
                           new Expanded(child: new Container()),
+
 
                           new IconButton(
                             icon: new Icon(
@@ -147,12 +161,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.white,
                               size: 35.0,
                             ),
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                           ),
 
+
                           new Expanded(child: new Container()),
+
+
                         ],
                       ),
                     )
@@ -162,5 +177,19 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ));
+  }
+}
+
+class CircleClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) {
+    return new Rect.fromCircle(
+        center: new Offset(size.width / 2, size.height / 2),
+        radius: min(size.width, size.height) / 2);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+    return true;
   }
 }
