@@ -120,7 +120,7 @@ class _RadialSeekBarState extends State<RadialSeekBar> {
   @override
   Widget build(BuildContext context) {
     return new CustomPaint(
-      painter:  new RadialSeekBarPainter(
+      foregroundPainter :  new RadialSeekBarPainter(
         trackWidth: widget.trackWidth,
         trackColor: widget.trackColor,
         progressWidth: widget.progressWidth,
