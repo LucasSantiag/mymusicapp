@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Expanded(
                 child: AudioPlaylistComponent(
                   playlistBuilder: (BuildContext context, Playlist playlist, Widget child){
-                    return AudioRadialSeekBar()
+                    return AudioRadialSeekBar();
                   }
                 ),
               ),
