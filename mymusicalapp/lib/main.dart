@@ -113,7 +113,7 @@ class VisualizerPainter extends CustomPainter{
     this.height,
     this.color,
   }) : wavePaint = Paint()
-      ..color = color.withOpacity(0.5)
+      ..color = color.withOpacity(0.75)
       ..style = PaintingStyle.fill;
 
   @override
@@ -123,6 +123,40 @@ class VisualizerPainter extends CustomPainter{
       wavePaint,
     );
   }
+
+  List<int> _createHistogram(List<int> samples, int bucketCount, [int start, int end]){
+    if (start == end)
+      return const [];
+
+    start = start ?? 0;
+    end = end ?? samples.length - 1;
+
+    final sampleCount = end - start + 1;
+
+    final samplePerBucket = (sampleCount / bucketCount).floor();
+    if (samplePerBucket == 0) {
+      return const [];
+    }
+
+    final actualSampleCount = sampleCount % (sampleCount % samplePerBucket);
+    List<int> histogram = List<int>.filled(bucketCount, 0);
+
+    for (int i = start; i <= start + actualSampleCount; i++) {
+      if ((i - start) % 2 ==1)
+        continue;
+
+      int bucketIndex = ((i - start) / samplePerBucket).floor();
+      histogram[bucketIndex] += samples[i];
+    }
+
+    for (var i = 0; i < histogram.length; i++) {
+      histogram[i] = (histogram[i] / samplePerBucket).abs().round();
+    }
+
+    return histogram;
+
+  }
+
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
