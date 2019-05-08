@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttery_audio/fluttery_audio.dart';
-import 'package:mymusicapp/theme.dart';
+import 'package:mymusicalapp/songs.dart';
+import 'package:mymusicalapp/theme.dart';
 
 
 class ButtonControls extends StatelessWidget {
@@ -21,30 +22,38 @@ class ButtonControls extends StatelessWidget {
           padding: const EdgeInsets.only(top: 40.0, bottom: 50.0),
           child: new Column(
             children: <Widget>[
-              new RichText(
-                text: new TextSpan(
-                  text: '',
-                  children: [
-                    new TextSpan(
-                        text: 'Song Title\n',
-                        style: new TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 4.0,
-                          height: 1.5,
-                        )
+              AudioPlaylistComponent(
+                playlistBuilder: (BuildContext context, Playlist playlist, Widget child){
+                  String songTitle = demoPlaylist.songs[playlist.activeIndex].songTitle;
+                  String artistName = demoPlaylist.songs[playlist.activeIndex].artist;
+
+                  return RichText(
+                    text: new TextSpan(
+                      text: '',
+                      children: [
+                        new TextSpan(
+                            text: '${songTitle.toUpperCase()}\n',
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 4.0,
+                              height: 1.5,
+                            )
+                        ),
+                        new TextSpan(
+                            text: '${artistName.toUpperCase()}',
+                            style: new TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 12.0,
+                              letterSpacing: 3.0,
+                              height: 1.5,
+                            ))
+                      ],
                     ),
-                    new TextSpan(
-                        text: 'Artist Name',
-                        style: new TextStyle(
-                          color: Colors.white.withOpacity(0.75),
-                          fontSize: 12.0,
-                          letterSpacing: 3.0,
-                          height: 1.5,
-                        ))
-                  ],
-                ),
+                    textAlign: TextAlign.center,
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),
