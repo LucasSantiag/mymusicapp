@@ -136,7 +136,7 @@ class VisualizerPainter extends CustomPainter{
     final pointsToGraph = histogram.length;
     final widthPerSample = (size.width / (pointsToGraph - 2)).floor();
 
-    final points = new List<double>.filled(pointsToGraph * 4, 0.0)
+    final points = new List<double>.filled(pointsToGraph * 4, 0.0);
 
     for (int i = 0; i< histogram.length - 1; ++i) {
       points[i * 4] = (i * widthPerSample).toDouble();
